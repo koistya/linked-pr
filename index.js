@@ -3,11 +3,11 @@ import { getOctokit } from "@actions/github";
 
 try {
   const token =
-    core.getInput("github-token", { required: false }) ||
+    getInput("github-token", { required: false }) ||
     process.env.GITHUB_TOKEN;
 
-  const state = core.getInput("state", { required: false }) || "open";
-  const sha = core.getInput("sha", { required: true });
+  const state = getInput("state", { required: false }) || "open";
+  const sha = getInput("sha", { required: true });
 
   const octokit = getOctokit(token);
   const result = await octokit.rest.repos.listPullRequestsAssociatedWithCommit({

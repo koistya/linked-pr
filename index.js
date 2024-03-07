@@ -2,10 +2,8 @@ import { getInput, setFailed, setOutput } from "@actions/core";
 import { getOctokit, context } from "@actions/github";
 
 try {
-  const token =
-    getInput("github-token", { required: false }) || process.env.GITHUB_TOKEN;
-
-  const state = getInput("state", { required: false }) || "open";
+  const token = getInput("github-token") || process.env.GITHUB_TOKEN;
+  const state = getInput("state") || "open";
   const sha = getInput("sha", { required: true });
 
   const octokit = getOctokit(token);

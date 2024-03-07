@@ -1,0 +1,37 @@
+name: "Linked PR"
+author: "koistya"
+description: "Finds a pull request (PR) associated with the current commit."
+branding:
+  color: "green"
+  icon: "git-pull-request"
+inputs:
+  github-token:
+    required: false
+    description: The GitHub token used to create an authenticated client. Defaults to github provided token.
+    default: ${{ github.token }}
+  state:
+    required: false
+    description: The state of the PR to return. One of "open", "closed", or "all".
+    default: "open"
+  sha:
+    required: false
+    description: SHA to get PR for. Defaults to current pull request SHA or current SHA.
+    default: ${{ github.event.pull_request.head.sha || github.sha }}
+outputs:
+  number:
+    description: "Example: 1347"
+  title:
+    description: "Example: new-feature"
+  body:
+    description: "Example: Please pull these awesome changes"
+  state:
+    description: "Example: open"
+  draft:
+    description: "Example: false"
+  assignee:
+    description: "Example: octocat"
+  author:
+    description: "Example: octocat"
+runs:
+  using: "node20"
+  main: "index.js"

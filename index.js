@@ -1,18 +1,17 @@
 import { getInput, setFailed, setOutput } from "@actions/core";
-import { getOctokit } from "@actions/github";
+import { getOctokit, context } from "@actions/github";
 
 try {
   const token =
-    getInput("github-token", { required: false }) ||
-    process.env.GITHUB_TOKEN;
+    getInput("github-token", { required: false }) || process.env.GITHUB_TOKEN;
 
   const state = getInput("state", { required: false }) || "open";
   const sha = getInput("sha", { required: true });
 
   const octokit = getOctokit(token);
   const result = await octokit.rest.repos.listPullRequestsAssociatedWithCommit({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
+    owner: context.repo.owner,
+    repo: context.repo.repo,
     commit_sha: sha,
   });
 
